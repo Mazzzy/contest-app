@@ -21,12 +21,12 @@ export default class App extends React.Component {
       const form = document.getElementById('addContestForm');
       if(form.contestName.value !== ""  && form.contestDesc.value !== ""){
         const data = new FormData();
-       data.append('contestName', form.contestName.value);
+        data.append('contestName', form.contestName.value);
         data.append('contestDesc', form.contestDesc.value);
-        // const data = {
-        //   contestName: form.contestName.value,
-        //   contestDesc: form.contestDesc.value
-        // }
+        data.append('startDate', form.startDate.value);
+        data.append('endDate', form.endDate.value);
+        data.append('entrant', form.entrant.value);
+        data.append('coordinates', form.coordinates.value);
         this.props.mappedAddContest(data);
       form.reset();
       }
