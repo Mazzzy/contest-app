@@ -17,7 +17,13 @@ export default class Contest extends React.Component {
        {contestState.contest && !contestState.isFetching &&
          <div>
            <h3>{contestState.contest.contestName}</h3>
-           <p>{contestState.contest.contestDesc}</p>
+           <p>Desc: {contestState.contest.contestDesc}</p>
+           <ul className="contest-list-details">
+             <li>Start Date: {contestState.contest.startDate}</li>
+             <li>End Date: {contestState.contest.endDate}</li>
+             <li>Entrants: {contestState.contest.entrant}</li>
+             <li>Co-ordinates: {contestState.contest.coordinates}</li>
+           </ul>
          </div>
        }
       </div>

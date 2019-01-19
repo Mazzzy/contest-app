@@ -3,3 +3,7 @@
 }
   
 .centerAlign{text-align: center;vertical-align: middle;}
+
+.contest-list-details {
+    list-style: none;
+}

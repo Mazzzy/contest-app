@@ -31,8 +31,12 @@ export default class Contests extends React.Component {
     if(editForm.contestName.value !== ""){
       const data = new FormData();
       data.append('id', editForm.id.value);
-     data.append('contestName', editForm.contestName.value);
+      data.append('contestName', editForm.contestName.value);
       data.append('contestDesc', editForm.contestDesc.value);
+      data.append('startDate', editForm.startDate.value);
+      data.append('endDate', editForm.endDate.value);
+      data.append('entrant', editForm.entrant.value);
+      data.append('coordinates', editForm.coordinates.value);
       this.props.mappedEditContest(data);
     }
     else{
