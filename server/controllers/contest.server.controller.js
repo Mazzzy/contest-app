@@ -45,6 +45,6 @@ export const deleteContest = (req,res) => {
     if(err){
     return res.json({'success':false,'message':'Some Error'});
     }
-return res.json({'success':true,'message':contest.contestText+' deleted successfully'});
+return res.json({'success':true,'message':contest.contestName+' deleted successfully'});
   })
 }

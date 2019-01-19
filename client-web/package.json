@@ -20,6 +20,10 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy": "http://localhost:3001",
+  "devDependencies": {
+    "bootstrap": "^3.3.7"
+  },
   "eslintConfig": {
     "extends": "react-app"
   },
