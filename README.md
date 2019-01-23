@@ -73,6 +73,7 @@ http://localhost:8000
 - Send Connected users details to all
 - Receive vote details from client and update data
 - Realtime sync of data using socket.io
+- Express based APIs for the Contest CRUD operations
 
 ## Web App - Admin Panel
 - Create Contest by entering details : 
