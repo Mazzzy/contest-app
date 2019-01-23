@@ -17,6 +17,7 @@
     "express-busboy": "^7.0.1",
     "mongoose": "^5.4.5",
     "morgan": "^1.9.1",
+    "socket.io": "^2.2.0",
     "source-map-support": "^0.5.10"
   }
 }

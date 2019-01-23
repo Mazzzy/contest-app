@@ -8,10 +8,16 @@ var socketFlow = {
     socket: null,
     userId: "",
     sentData: {},
+    connects: {},
+    contests: [],
     active: false,
     init: function(){
         this.userId = Math.random().toString(16).substring(2,15);
         this.getCurrentCords();
+        
+        this.socket = io.connect('http://localhost:3001');
+        // connect to socket events
+        this.connectToSocEvents();
     },
     getCurrentCords: function(){
         // check whether browser supports geolocation api
@@ -31,8 +37,8 @@ var socketFlow = {
             id: this.userId,
             active: this.active,
             coords: {
-                lat: lat,
-                lng: lng
+                lat: lat.toString(),
+                lng: lng.toString()
             }
         };
 
@@ -46,7 +52,32 @@ var socketFlow = {
         };
         console.log('Error ', errors[error.code]);
     },
+    connectToSocEvents: function(){
+        var self = this;
+        // for realtime co-ords
+        self.socket.on('load:coords', function(data) {
+            if (!(data.id in self.connects)) {
+                console.log("All connected Users Data: ", data)
+            }
+    
+            self.connects[data.id] = data;
+            self.connects[data.id].updated = Date.now();
+        });
+        // for channel and co-ords
+        self.socket.on('load:contest', function(data) {
+            if (data.success && data.contests) {
+                // send data towards app
+                contestApp.fetchMapData(data);
+            }
+            self.contests = data;
+        });
+    },
     emitCords: function(){
-        console.log(this.sentData);
+        console.log("Sent Data towards server: ", this.sentData);
+        this.socket.emit('send:coords', this.sentData);
+    },
+    emitVote: function(obj){
+        console.log("Emit Vote towards server: ", obj);
+        this.socket.emit('send:vote', obj);
     }
 }

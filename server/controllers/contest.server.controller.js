@@ -2,7 +2,16 @@ import mongoose from 'mongoose';
 //import models
 import Contest from '../models/contest.server.model';
 export const getContests = (req,res) => {
-  Contest.find().exec((err,contests) => {
+  // for the specific contest details - whose co-ordinates matched with the current user's co-ordinates
+  var qury = {};
+  var cord = req.query["lat"] ? req.query["lat"] : req.query["lng"]; 
+  // get Contest by entrant co-ordinates
+  if(cord){
+    // search either by Lat or Long
+    qury = {$where : 'this.coordinates.indexOf("' + cord + '") != -1'};
+  }
+  // if not co-ordinates then normal flow
+  Contest.find(qury).exec((err,contests) => {
     if(err){
     return res.json({'success':false,'message':'Some Error'});
     }
