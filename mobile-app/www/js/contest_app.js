@@ -20,6 +20,9 @@ var contestApp = {
 
         // init and generate map
         this.initGoogleMaps();
+
+        // initialise modal
+        appModal.init();
     },
     initGoogleMaps: function(){
         var div = document.getElementById("gmap");
@@ -39,11 +42,17 @@ var contestApp = {
     },
     onMapReady: function(){
         var locationMarker = this.getCustomMapIcon();
-        map.addMarker({
+        var marker = map.addMarker({
             position: {lat: testLat, lng: testLng},
             title: 'my location',
             icon: locationMarker
-        })
+        });
+
+        // Catch the MARKER_CLICK event
+        marker.on(plugin.google.maps.event.INFO_CLICK, function() {
+            // open the modal
+            appModal.toggleModal();
+        });
     },
     getCustomMapIcon: function(){
         return {
