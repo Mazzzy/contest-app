@@ -7,6 +7,7 @@
  * On click of info displays feature to vote by swiping left /right
  */
 var contestApp = {
+    map: null,
     data: [],
     init: function() {
         // initialise map plugin
@@ -27,7 +28,7 @@ var contestApp = {
     initGoogleMaps: function(){
         var div = document.getElementById("gmap");
         // Initialize the map view
-        map = plugin.google.maps.Map.getMap(div);
+        this.map = plugin.google.maps.Map.getMap(div);
     },
     fetchMapData: function(data){
         // made data available in format for map
@@ -70,20 +71,21 @@ var contestApp = {
         };
     },
     setMarkers: function(){
+        var self = this;
         var data = this.data;
         // Add markers
         var bounds = [];
         var markers = data.map(function(options) {
             bounds.push(options.position);
-            return map.addMarker(options);
+            return self.map.addMarker(options);
         });
 
         // Set a camera position that includes all markers.
-        map.moveCamera({
+        self.map.moveCamera({
             target: bounds
         });
         // attach events to marker title (info window)
-        this.attachInfoWindows(markers);
+        self.attachInfoWindows(markers);
     },
     attachInfoWindows: function(markersArr){
         var data = this.data;
