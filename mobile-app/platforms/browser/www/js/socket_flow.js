@@ -8,10 +8,15 @@ var socketFlow = {
     socket: null,
     userId: "",
     sentData: {},
+    connects: {},
     active: false,
     init: function(){
         this.userId = Math.random().toString(16).substring(2,15);
         this.getCurrentCords();
+        
+        this.socket = io.connect('http://localhost:3001');
+        // connect to socket events
+        this.connectToSocEvents();
     },
     getCurrentCords: function(){
         // check whether browser supports geolocation api
@@ -46,7 +51,20 @@ var socketFlow = {
         };
         console.log('Error ', errors[error.code]);
     },
+    connectToSocEvents: function(){
+        var self = this;
+        // for realtime co-ords
+        self.socket.on('load:coords', function(data) {
+            if (!(data.id in self.connects)) {
+                console.log("All connected Users Data: ", data)
+            }
+    
+            self.connects[data.id] = data;
+            self.connects[data.id].updated = Date.now();
+        });
+    },
     emitCords: function(){
-        console.log(this.sentData);
+        console.log("Sent Data towards server: ", this.sentData);
+        this.socket.emit('send:coords', this.sentData);
     }
 }
