@@ -37,8 +37,8 @@ var socketFlow = {
             id: this.userId,
             active: this.active,
             coords: {
-                lat: lat,
-                lng: lng
+                lat: lat.toString(),
+                lng: lng.toString()
             }
         };
 
@@ -74,6 +74,15 @@ var socketFlow = {
     },
     emitCords: function(){
         console.log("Sent Data towards server: ", this.sentData);
-        this.socket.emit('send:coords', this.sentData);
+        var sentData = {
+            id: this.userId,
+            active: this.active,
+            coords: {
+                lat: "-122.1180187",
+                lng: "37.3960513",
+                acr: 121
+            }
+        };
+        this.socket.emit('send:coords', sentData);
     }
 }
