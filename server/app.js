@@ -43,6 +43,17 @@ app.use((req, res, next) => {
   res.status(404).send('<h2 align=center>Page Not Found!</h2>');
 });
 // start the server
-app.listen(port,() => {
+const server = app.listen(port,() => {
   console.log(`App Server Listening at ${port}`);
+});
+// socket io operations
+const io = require('socket.io').listen(server);
+// listen for incoming connections from client
+io.sockets.on('connection', function (socket) {
+  // start listening for coords
+  socket.on('send:coords', function (data) {
+    console.log("Receieved Cords Connected Client: ", data.id);
+  	// broadcast your coordinates to everyone except you
+  	socket.broadcast.emit('load:coords', data);
+  });
 });
