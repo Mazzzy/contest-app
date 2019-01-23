@@ -46,14 +46,54 @@ app.use((req, res, next) => {
 const server = app.listen(port,() => {
   console.log(`App Server Listening at ${port}`);
 });
+
 // socket io operations
+const http = require('http');
 const io = require('socket.io').listen(server);
 // listen for incoming connections from client
 io.sockets.on('connection', function (socket) {
   // start listening for coords
   socket.on('send:coords', function (data) {
+    // Send the current positions to the connected client when client is ready
+    getContest(data, function(contestInfo){
+      console.log('Send Contest to client ' + socket.id);
+      socket.emit('load:contest', contestInfo);
+    });
     console.log("Receieved Cords Connected Client: ", data.id);
   	// broadcast your coordinates to everyone except you
   	socket.broadcast.emit('load:coords', data);
   });
 });
+
+// get specific contest details for the user - based on his/her current geolocation co-ordinates
+function getContest(data, callback){
+  var latVal = data.coords.lat;
+  var lngVal = data.coords.lng;
+
+  var options = {
+      port: 3001,
+      path: '/api/?lat='+latVal+'&lng='+lngVal,
+      method: 'GET'
+  };
+  var req = http.request(options, function(res) {
+      var output = '';
+
+      res.setEncoding('utf8');
+      res.on('data', function (chunk) {
+          output += chunk;
+      });
+
+      res.on('end', function() {
+          var obj = JSON.parse(output);
+          if (callback != undefined){
+              callback(obj);
+          }
+      });
+  });
+
+  req.on('error', function(e) {
+      console.log('problem with request: ' + e.message);
+  });
+
+  req.end();
+}
