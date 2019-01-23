@@ -38,9 +38,17 @@ var contestApp = {
         map.addEventListener(plugin.google.maps.event.MAP_READY, this.onMapReady.bind(this));
     },
     onMapReady: function(){
+        var locationMarker = this.getCustomMapIcon();
         map.addMarker({
             position: {lat: testLat, lng: testLng},
-            title: 'my location'
+            title: 'my location',
+            icon: locationMarker
         })
+    },
+    getCustomMapIcon: function(){
+        return {
+            url: 'img/pin.png',
+            anchor: new google.maps.Point(16, 0)
+        };
     }
 };
