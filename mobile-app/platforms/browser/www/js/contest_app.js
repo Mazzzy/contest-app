@@ -23,6 +23,9 @@ var contestApp = {
 
         // initialise modal
         appModal.init();
+
+        // initialise sockets
+        socketFlow.init();
     },
     initGoogleMaps: function(){
         var div = document.getElementById("gmap");
