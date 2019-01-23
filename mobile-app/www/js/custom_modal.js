@@ -28,6 +28,13 @@ var appModal = {
             pChild.textContent = ev.type +" gesture detected.";
         });
     },
+    setModalContent: function(contents){
+        var modalIMg = document.getElementById("modal-img");
+        var infoDetails = document.getElementById("modal-details");
+
+        modalIMg.src = contents["img"];
+        infoDetails.innerText = contents["title"];
+    },
     toggleModal: function(){
         this.elem.classList.toggle("show-modal");
     }
