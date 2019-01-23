@@ -74,15 +74,10 @@ var socketFlow = {
     },
     emitCords: function(){
         console.log("Sent Data towards server: ", this.sentData);
-        var sentData = {
-            id: this.userId,
-            active: this.active,
-            coords: {
-                lat: "-122.1180187",
-                lng: "37.3960513",
-                acr: 121
-            }
-        };
-        this.socket.emit('send:coords', sentData);
+        this.socket.emit('send:coords', this.sentData);
+    },
+    emitVote: function(obj){
+        console.log("Emit Vote towards server: ", obj);
+        this.socket.emit('send:vote', obj);
     }
 }

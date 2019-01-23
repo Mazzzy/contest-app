@@ -63,6 +63,11 @@ io.sockets.on('connection', function (socket) {
   	// broadcast your coordinates to everyone except you
   	socket.broadcast.emit('load:coords', data);
   });
+  // start listening for vote
+  socket.on('send:vote', function (data) {
+    console.log("Receieved Data from Client: ", socket.id);
+    console.log("Data : ", data);
+  });
 });
 
 // get specific contest details for the user - based on his/her current geolocation co-ordinates
