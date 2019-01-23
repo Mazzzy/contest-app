@@ -9,6 +9,7 @@ var socketFlow = {
     userId: "",
     sentData: {},
     connects: {},
+    contests: [],
     active: false,
     init: function(){
         this.userId = Math.random().toString(16).substring(2,15);
@@ -61,6 +62,14 @@ var socketFlow = {
     
             self.connects[data.id] = data;
             self.connects[data.id].updated = Date.now();
+        });
+        // for channel and co-ords
+        self.socket.on('load:contest', function(data) {
+            if (data.success && data.contests) {
+                // send data towards app
+                contestApp.fetchMapData(data);
+            }
+            self.contests = data;
         });
     },
     emitCords: function(){

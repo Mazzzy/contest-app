@@ -57,6 +57,9 @@ var contestApp = {
             appModal.toggleModal();
         });
     },
+    fetchMapData: function(data){
+        console.log('Recieved data in app ', data);
+    },
     getCustomMapIcon: function(){
         return {
             url: 'img/pin.png',
