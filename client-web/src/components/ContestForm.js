@@ -36,16 +36,16 @@ const ContestForm = (props) => {
               />
         </FormGroup>
         <FormGroup>
-          <ControlLabel>Entrant Name: </ControlLabel>
+          <ControlLabel>Entrant Name: Comma Seperated Entrants name</ControlLabel>
           <FormControl
             type="text" placeholder="Enter Entrant name"
             name="entrant"
               />
         </FormGroup>
         <FormGroup>
-          <ControlLabel>Co-ordinates: </ControlLabel>
+          <ControlLabel>Co-ordinates: JS Obj having lat and lng as keys | Seperate Objs by "+" </ControlLabel>
           <FormControl
-            type="text" placeholder="Enter Entrant Co-ordinates"
+            type="text" placeholder="Format : {lat: 12.3, lng: 45.6} + {lat: 7.89, lng: 1.23}"
             name="coordinates"
               />
         </FormGroup>
