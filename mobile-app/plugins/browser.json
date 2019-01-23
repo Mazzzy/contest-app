@@ -9,6 +9,9 @@
   "installed_plugins": {
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.contest.mobilecontestapp"
+    },
+    "cordova-plugin-googlemaps": {
+      "PACKAGE_NAME": "com.contest.mobilecontestapp"
     }
   },
   "dependent_plugins": {}

@@ -40,6 +40,8 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
+        // start the contest application
+        contestApp.init();
     }
 };
 
